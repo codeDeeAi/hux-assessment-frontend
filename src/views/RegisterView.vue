@@ -71,7 +71,7 @@ const submit = async () => {
     isLoading.value = true;
 
     await axios.post(`${baseUrl}/register`, form.value, {
-      header: {
+      headers: {
         accepts: "application/json",
         "content-type": "application/json"
       }
