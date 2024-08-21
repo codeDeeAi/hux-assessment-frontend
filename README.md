@@ -1,39 +1,103 @@
-# vue-project
+# Hux Ventures Contacts App Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is the frontend application for managing contacts within the Hux Ventures ecosystem. It provides an intuitive interface for users to create, view, edit, and manage their contacts.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- User Authentication
+- Contact Management (Create, View, Edit, Delete)
+- Error Handling for Unavailable Routes
+- Secure Routes for Authorized Users
 
-## Type Support for `.vue` Imports in TS
+## Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- **Vue.js** - Frontend Framework
+- **Vue Router** - Routing
+- **Pinia** - State Management
+- **Axios** - HTTP Client
 
-## Customize configuration
+## Getting Started
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### Prerequisites
 
-## Project Setup
+Ensure you have the following installed:
 
-```sh
-npm install
-```
+- Node.js (v18.x or higher)
+- npm or yarn
 
-### Compile and Hot-Reload for Development
+### Installation
 
-```sh
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/codeDeeAi/hux-assessment-frontend.git
+   cd hux-assessment-frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Copy the `.env.example` to `.env` and set up your environment variables:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Update the `.env` file with your API server URL:
+
+   ```
+   VITE_API_BASE_URL=http://localhost:3000/api/v1
+   ```
+
+### Running the Application
+
+To start the development server:
+
+```bash
 npm run dev
+# or
+yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
+The application should now be running on `http://localhost:3000`.
 
-```sh
+### Building for Production
+
+To build the application for production:
+
+```bash
 npm run build
+# or
+yarn build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Testing
 
-```sh
-npm run lint
+To run tests:
+
+```bash
+npm run test
+# or
+yarn test
 ```
+
+## Environment Variables
+
+The following environment variables need to be configured in your `.env` file:
+
+- `VITE_API_BASE_URL`: The base URL for the API server.
+
+Example `.env`:
+
+```plaintext
+VITE_API_BASE_URL=http://localhost:3000/api/v1
+```
+
+## License
+
+This project is licensed under the MIT License.
