@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import { useForm } from "@/composables/form";
+import { useNotify } from "@/composables/notification";
 
 // Interfaces
 interface IForm {
@@ -11,6 +13,10 @@ interface IForm {
 
 // Defined
 const { initErrors, clearAllErrors, clearError, setError, getErrors } = useForm();
+
+const { toast } = useNotify();
+
+const router = useRouter();
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -57,18 +63,45 @@ const submit = async () => {
   try {
     isLoading.value = true;
 
-    await axios.post(`${baseUrl}/login`, form.value, {
+    const data = await axios.post(`${baseUrl}/login`, form.value, {
       header: {
         accepts: "application/json",
         "content-type": "application/json"
       }
-    })
+    });
 
     isLoading.value = false;
+
+    //TODO: Set auth store
+
+    router.push({ name: 'contacts ' });
+
   } catch (error: any) {
 
     isLoading.value = false;
-    //
+
+    const { response } = error;
+
+    if (response.data) {
+
+      const { code, error, message, errors } = response.data;
+
+      if (code == 422) {
+        toast(message || error, 'error');
+
+        errors.forEach(({ path, msg }: any) => {
+          setError(path as string, msg as string);
+        });
+
+      } else {
+
+        toast(message || error, 'error');
+      }
+
+      return
+    }
+
+    return toast('Error signing in', 'error');;
   }
 }
 
@@ -148,7 +181,8 @@ initErrors({
 
         <p class="mt-10 text-center text-sm text-gray-500">
           Not a member?
-          <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register here</a>
+          <router-link :to="{ name: 'register' }"
+            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register here</router-link>
         </p>
       </div>
     </div>

@@ -18,7 +18,32 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('../views/RegisterView.vue')
-    }
+    },
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: () => import('../views/ContactsList.vue')
+    },
+    {
+      path: '/contact/:id',
+      name: 'contact-view',
+      component: () => import('../views/ContactsView.vue')
+    },
+    {
+      path: '/contact/:id/edit',
+      name: 'contact-edit',
+      component: () => import('../views/ContactsEdit.vue')
+    },
+    {
+      path: '/contact',
+      name: 'contact-create',
+      component: () => import('../views/ContactsCreate.vue')
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: 'ErrorView',
+      component: () => import('../views/404View.vue'),
+    },
   ]
 })
 
