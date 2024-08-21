@@ -55,7 +55,7 @@ const fetchContacts = async () => {
 
             if (code == 401) {
 
-                // store.purgeAuth();
+                store.purgeAuth();
 
                 router.push({ name: 'home' })
             } else {
@@ -69,6 +69,55 @@ const fetchContacts = async () => {
         return toast('Error fetching data', 'error');;
     }
 };
+
+const deleteContact = async (id: string) => {
+    try {
+        isLoading.value = true;
+
+        await axios.delete(`${baseUrl}/contact/${id}`, {
+            headers: {
+                accepts: "application/json",
+                "content-type": "application/json",
+                "Authorization": `Bearer ${store.getUser.token}`
+            }
+        })
+
+        isLoading.value = false;
+
+        toast('Data deleted', 'success');
+
+        const deleted_index = contacts.value.findIndex((contact) => contact._id == id);
+
+        if (deleted_index !== -1) {
+            contacts.value.splice(deleted_index, 1);
+        }
+
+    } catch (error: any) {
+
+        isLoading.value = false;
+
+        const { response } = error;
+
+        if (response.data) {
+
+            const { code, error, message, errors } = response.data;
+
+            if (code == 401) {
+
+                store.purgeAuth();
+
+                router.push({ name: 'home' })
+            } else {
+
+                toast(message || error, 'error');
+            }
+
+            return
+        }
+
+        return toast('Error fetching data', 'error');;
+    }
+}
 
 onMounted(() => {
     fetchContacts();
@@ -109,6 +158,8 @@ onMounted(() => {
                         <td class="px-6 py-4 flex align-middle gap-3">
                             <router-link :to="{ name: 'contact-view', params: { id: contact._id } }">View</router-link>
                             <router-link :to="{ name: 'contact-edit', params: { id: contact._id } }">Edit</router-link>
+                            <button type="button" class="text-red-500"
+                                @click.prevent="deleteContact(contact._id)">Delete</button>
                         </td>
                     </tr>
                 </tbody>

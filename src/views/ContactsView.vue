@@ -62,7 +62,7 @@ const fetchContact = async () => {
 
             if (code == 401) {
 
-                // store.purgeAuth();
+                store.purgeAuth();
 
                 router.push({ name: 'home' })
             } else {
