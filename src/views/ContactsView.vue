@@ -73,7 +73,7 @@ const fetchContact = async () => {
             return
         }
 
-        return toast('Error fetching data', 'error');;
+        return toast('Error fetching data', 'error');
     }
 };
 

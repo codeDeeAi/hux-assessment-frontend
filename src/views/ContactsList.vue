@@ -66,7 +66,7 @@ const fetchContacts = async () => {
             return
         }
 
-        return toast('Error fetching data', 'error');;
+        return toast('Error fetching data', 'error');
     }
 };
 
@@ -126,6 +126,11 @@ onMounted(() => {
 <template>
     <div class="flex min-h-full w-full px-6 py-24 lg:px-8">
         <div class="relative overflow-x-auto w-full">
+            <div class="w-full flex justify-end pb-2">
+                <router-link :to="{ name: 'contact-create' }"
+                    class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Add
+                    contact</router-link>
+            </div>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
