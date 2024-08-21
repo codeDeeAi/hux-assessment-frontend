@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useAuthStore } from "@/stores/auth";
+
+const store = useAuthStore();
 </script>
 <template>
     <header class="absolute inset-x-0 top-0 z-50">
@@ -23,14 +26,16 @@ import { RouterLink } from 'vue-router'
                 </button>
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="/" class="text-sm font-semibold leading-6 text-gray-900">Product</a>
-                <a href="/" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-                <a href="/" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-                <a href="/" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
+                <router-link to="/" class="text-sm font-semibold leading-6 text-gray-900">Home</router-link>
+                <router-link v-if="store.isLoggedIn" :to="{ name: 'contacts' }"
+                    class="text-sm font-semibold leading-6 text-gray-900">Contacts</router-link>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <RouterLink :to="{ name: 'login' }" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
-                        aria-hidden="true">&rarr;</span></RouterLink>
+                <RouterLink v-if="!store.isLoggedIn" :to="{ name: 'login' }"
+                    class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span>
+                </RouterLink>
+                <button v-else type="button" class="text-sm font-semibold leading-6 text-gray-900">Logout
+                </button>
             </div>
         </nav>
         <!-- Mobile menu, show/hide based on menu open state. -->
@@ -56,19 +61,10 @@ import { RouterLink } from 'vue-router'
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/10">
                         <div class="space-y-2 py-6">
-                            <a href="/"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
-                            <a href="/"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-                            <a href="/"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
-                            <a href="/"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
-                        </div>
-                        <div class="py-6">
-                            <a href="/"
-                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
-                                in</a>
+                            <router-link to="/"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Home</router-link>
+                            <router-link v-if="store.isLoggedIn" :to="{ name: 'contacts' }"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contacts</router-link>
                         </div>
                     </div>
                 </div>

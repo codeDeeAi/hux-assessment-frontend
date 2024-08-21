@@ -13,7 +13,7 @@ interface IForm {
 }
 
 // Defined
-const { initErrors, clearAllErrors, clearError, setError, getErrors } = useForm();
+const { initErrors, clearAllErrors, setError, getErrors } = useForm();
 
 const { toast } = useNotify();
 
