@@ -166,8 +166,8 @@ initErrors({
 
                     <div>
                         <div class="flex items-center justify-between">
-                            <label for="phone_number"
-                                class="block text-sm font-medium leading-6 text-gray-900">phone_number</label>
+                            <label for="phone_number" class="block text-sm font-medium leading-6 text-gray-900">Phone
+                                number</label>
                         </div>
                         <div class="mt-2">
                             <input id="phone_number" first_name="phone_number" type="telephone"
@@ -201,7 +201,7 @@ initErrors({
                 </form>
 
                 <p class="mt-10 text-center text-sm text-gray-500">
-                    <router-link :to="{ first_name: 'contacts' }"
+                    <router-link :to="{ name: 'contacts' }"
                         class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Go back</router-link>
                 </p>
             </div>
