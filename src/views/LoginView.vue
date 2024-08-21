@@ -4,6 +4,7 @@ import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useForm } from "@/composables/form";
 import { useNotify } from "@/composables/notification";
+import { useAuthStore, type IUser } from "@/stores/auth";
 
 // Interfaces
 interface IForm {
@@ -17,6 +18,8 @@ const { initErrors, clearAllErrors, clearError, setError, getErrors } = useForm(
 const { toast } = useNotify();
 
 const router = useRouter();
+
+const store = useAuthStore();
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -63,7 +66,7 @@ const submit = async () => {
   try {
     isLoading.value = true;
 
-    const data = await axios.post(`${baseUrl}/login`, form.value, {
+    const { data: { data } } = await axios.post(`${baseUrl}/login`, form.value, {
       header: {
         accepts: "application/json",
         "content-type": "application/json"
@@ -72,9 +75,9 @@ const submit = async () => {
 
     isLoading.value = false;
 
-    //TODO: Set auth store
+    store.setAuth(data as IUser)
 
-    router.push({ name: 'contacts ' });
+    router.push({ name: 'contacts' });
 
   } catch (error: any) {
 
